@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% extends "base.html" %}
+    {% load static %}
+    <title>Koszyk</title>
+</head>
+<body>
+{% block content %}
+<link rel="stylesheet" href="{% static 'cart.css' %}">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 col-sm-6 offset-md-1">
+            <br>
+            <a href="/../products" class="btn btn-secondary"> <- Powrót</a>
+            <br><br>
+        </div>
+    </div>
+    <div class="row  align-items-center">
+        <div class="col-xs-10 col-md-7 offset-md-1">
+            <h3> Całkowita wartość koszyka: {{cart_value}} zł</h3>
+        </div>
+        <div class="col-xs-2 col-md-4">
+            <figure>
+                <br>
+                <img src="../../static/icons/Cart-256.png" class="img-fluid">
+            </figure>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10 offset-md-1">
+            <div class="table-responsive text-nowrap">
+                <h3> Produkty w koszyku</h3>
+                <table class="table">
+                    <br>
+                    <thead>
+                    <tr>
+                        <th scope="col">Nr</th>
+                        <th scope="col">Produkt</th>
+                        <th scope="col">Tytuł</th>
+                        <th scope="col">Cena</th>
+                        <th scope="col">Ilość</th>
+                        <th scope="col">Usuń</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product,amount in products.items %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><a href="/products/product{{product.id}}/"><img src="{{product.image_url}}"
+                                                                            alt={{product.title
+                                                                            }}></a></td>
+                        <td class="break-word">{{ product.title }}</td>
+                        <td>{{ product.get_current_price }} zł</td>
+                        <td>
+                            <form action="/cart/remove_one/" method="post" style="display: inline">
+                                {% csrf_token %}
+                                <div style="display: inline">
+                                    <input type="hidden" name="item_id" value="{{product.id}}">
+                                    <input class="btn btn-secondary" type="submit" value="-">
+                                </div>
+                            </form>
+                            {{ amount }}&emsp;
+                            <form action="/cart/add/" method="post" style="display: inline">
+                                {% csrf_token %}
+                                <div style="display: inline">
+                                    <input type="hidden" name="item_id" value="{{product.id}}">
+                                    <input class="btn btn-secondary" type="submit" value="+">
+                                </div>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/cart/del/" method="post" style="display: inline">
+                                {% csrf_token %}
+                                <input type="hidden" name="item_id" value="{{product.id}}">
+                                <input type="submit" class="btn btn-secondary" value="Usuń">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% if products.items %}
+    <div class="row mb-5 mt-5">
+        <div class="col-3 offset-md-9">
+            <a href="/../order" class="button"> Złóż zamówienie</a>
+        </div>
+    </div>
+    {% endif %}
+        <div class="row mb-5">
+        <div class="col-3 offset-md-9">
+            <br><br><br>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+</body>
+</html>

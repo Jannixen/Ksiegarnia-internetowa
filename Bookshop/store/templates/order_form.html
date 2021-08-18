@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Złóż zamówienie</title>
+</head>
+<body>
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-10 offset-1">
+            <a href="/../products/?page=1" class="btn btn-secondary"> <- Powrót</a>
+            <br><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 col-md-4 offset-md-2">
+            <br><br>
+            <h3>Złóż zamówienie</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{form | crispy}}
+                <input type="submit" value="Potwierdź zamówienie i przejdź do wyboru płatności ">
+            </form>
+        </div>
+        <div class="col-md-4 offset-md-1">
+            <br><br>
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Twój koszyk</span>
+                <span>
+                <img src="../../static/icons/cart.png" class="img-fluid">
+                <span class="badge badge-secondary">{{ number_of_products }}</span></span>
+            </h4>
+            <ul class="list-group mb-3 z-depth-1">
+                {% for product,amount in products.items %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <div>
+                        <h6 class="my-0">{{ amount }} x {{ product.title}}</h6>
+                    </div>
+                    <span class="text-muted">{{ product.get_current_price }} zł </span>
+                </li>
+                {% endfor %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Całkowita cena: </span>
+                    <strong>{{ total }} zł</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <form method="post", action="discount">
+                        {% csrf_token %}
+                        {{form_discount | crispy}}
+                        <input type="submit" value="Dodaj kod">
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col-3 offset-md-9">
+            <br><br><br>
+        </div>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

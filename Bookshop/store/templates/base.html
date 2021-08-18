@@ -1,0 +1,91 @@
+<!doctype html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="" width="device-width" , initial-scale=1, shrink-to-fit="no">
+    
+    <meta name="description" content="Projekt strony księgarnii internetowej">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row page-header">
+        <div class="col-2 offset-1">
+            <img src="../../static/icons/books.png" class="img-fluid">
+        </div>
+        <div class="col-6 my-auto">
+            <h1 style="font-size: 4vw">Z książką Ci do twarzy</h1>
+        </div>
+        <div class="col-3 my-auto buttonCart ">
+            {% if request.user.is_authenticated %}
+            <button type="button" class="btn btn-default btn-lg">
+                <div><a href="../../user_detail"><img src="../../static/icons/user.png" class="img-fluid">
+                    <p> Konto </p></a></div>
+            </button>
+            {% else %}
+            <button type="button" class="btn btn-default btn-lg">
+                <div><a href="{% url 'account_login' %}"><img src="../../static/icons/user.png" class="img-fluid">
+                    <p> Zaloguj się </p></a></div>
+            </button>
+            {% endif %}
+            <button type="button" class="btn btn-default btn-lg">
+                <div><a href="/cart"><img src="../../static/icons/cart.png" class="img-fluid">
+                    <p>Koszyk </p></a></div>
+            </button>
+
+        </div>
+    </div>
+
+    <div class="mt-2">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    {% block content %}
+    {% endblock %}
+    <div clas="row mt-5 mb-5">
+        <div class="col-12">
+            <br><br><br>
+        </div>
+    </div>
+</div>
+</body>
+
+<div class="container-fluid">
+    <footer class="row page-footer text-center font-small" id="flags">
+        <div class="col-5">
+            <a href="#" class="fa fa-facebook" style="width: 7vw"></a>
+            <a href="#" class="fa fa-twitter" style="width: 7vw"></a>
+            <a href="#" class="fa fa-pinterest" style="width: 7vw"></a>
+            <a href="#" class="fa fa-instagram" style="width: 7vw"></a>
+        </div>
+        <div class="col-5 offset-2">
+            <p class="whitetext" style="font-size: 1vw"><a href="../complaint/" class="whitetext"> Złóż
+                reklamacje </a>
+                | Regulamin | Dane firmy | Adres | Polityka prywatności </p>
+        </div>
+    </footer>
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</html>

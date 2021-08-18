@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Szczegóły zamówienia</title>
+</head>
+<body>
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-10 offset-1">
+            <a href="/../products/?page=1" class="btn btn-secondary"> <- Powrót</a>
+            <br><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10 offset-2">
+            <br>
+            <h3> Dane zamawiającego: </h3>
+            Imię i nazwisko: {{ order.name }} {{order.surname}} <br>
+            Adres: {{ order.address }} <br>
+            Wybrana dostawa: {{ order.delivery }} <br>
+            <br><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10 offset-2">
+            <div class="table-responsive text-nowrap">
+                <h3> Zamówione produkty: </h3>
+                <table class="table">
+                    <br>
+                    <thead>
+                    <tr>
+                        <th scope="col">Nr</th>
+                        <th scope="col">Produkt</th>
+                        <th scope="col">Tytuł</th>
+                        <th scope="col">Cena</th>
+                        <th scope="col">Ilość</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product,amount in order.get_products.items %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><a href="/products/product{{product.id}}/"><img src="{{product.image_url}}"
+                                                                            alt={{product.title
+                                                                            }}></a> &emsp;&emsp;
+                        </td>
+                        <td>{{ product.title }}</td>
+                        <td>{{ product.get_current_price }}</td>
+                        <td>{{ amount }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <row>
+                <div class="col-5 offset-7">
+                    {% if order.ordered %}
+                    <h4><b> Stan: Potwierdzono </b></h4>
+                    {% if order.get_payment_type == "Karta kredytowa" %}
+                    <h4><b> Zapłacono: {{order.get_total_price}} zł </b></h4>
+                    {% else %}
+                    <h4><b> Do zapłaty: {{order.get_total_price}} zł </b></h4>
+                    <h4><b> Płatność: {{order.get_payment_type}} </b></h4>
+                    {% endif %}
+                     {% else %}
+                    <h4><b> Stan: Anulowano </b></h4>
+                    {% endif %}
+                    <h6><b> Dostawa: {{order.delivery}} zł </b></h6>
+                    <br><br><br>
+                </div>
+            </row>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10 offset-2">
+            {% if order.get_payment_type == "Przelew" %}
+            <br><br>
+            <b> Wykonaj przelew na konto 11 1111 1111 1111 1111 1111 1111, Księgarnia ,,Z książką Ci do
+                twarzy'' Wesoła 12 Warszawa</b>
+            <br><br>
+            <b> Księgowanie płatności może potrwać do 2 dni. Nastąpi mailowe potwierdzenie płatności.</b>
+            </h3>
+            {% endif %}
+            {% if order.get_payment_type == "Za pobraniem" %}
+            <b> Przygotuj odliczoną kwotę dla kuriera. </b>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+</body>
+</html>

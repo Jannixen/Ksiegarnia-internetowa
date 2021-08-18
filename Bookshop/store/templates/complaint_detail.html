@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+<head>
+    <meta charset="UTF-8">
+    <title>Szczegóły reklamacji</title>
+</head>
+<body>
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-10 offset-1">
+            <a href="/../products/?page=1" class="btn btn-secondary"> <- Powrót</a>
+            <br><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10 offset-2">
+            <br>
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted"> Dane reklamującego: </span></h4> <br>
+            <ul class="list-group mb-3 z-depth-1">
+                <li class="list-group-item d-flex justify-content-between">
+                    Imię i nazwisko: {{ complaint.name }} {{complaint.surname}} <br>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    Reklamowany produkt: {{ complaint.ordered_product }} <br>
+                </li>
+                   <li class="list-group-item d-flex justify-content-between">
+                    Zamówienie Nr.: {{ complaint.ordered_product.order.id }} <br>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    Opis reklamacji: {{ complaint.message}} <br>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    {% if complaint.product_photo %}
+                    {% load media_url %}
+                    Dołączone zdjęcie: <br><br>
+                    <img src="{{ complaint.product_photo.url}} "><br>
+                    {% endif %}
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    {% if complaint.written_complaint %}
+                    Załączone pliki: {{ complaint.written_complaint}} <br>
+                    {% endif %}
+                    <br><br>
+                </li>
+        </div>
+    </div>
+    <row>
+        <div class="col-5 offset-7">
+            <br><br><br>
+        </div>
+    </row>
+</div>
+{% endblock %}
+</body>
+</html>

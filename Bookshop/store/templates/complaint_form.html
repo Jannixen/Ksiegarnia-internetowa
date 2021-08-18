@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Złóż reklamacje</title>
+</head>
+<body>
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-10 offset-1">
+            <a href="/../products/?page=1" class="btn btn-secondary"> <- Powrót</a>
+            <br><br>
+        </div>
+        <div class="col-sm-12 col-md-6 offset-md-2">
+            <br><br>
+            <h3>Złóż reklamacje</h3>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form|crispy}}
+                <br><br>
+                <input type="submit" value="Złóż reklamacje">
+            </form>
+        </div>
+        <div class="col-12">
+            <br><br><br>
+        </div>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>
