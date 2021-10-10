@@ -14,11 +14,11 @@ Projekt tworzony w ramach Projektu Indywidualnego. Polegał na stworzeniu aplika
 
 
 
-![Strona główna](https://github.com/Jannixen/Ksiegarnia-internetowa/blob/main/strona_g%C5%82%C3%B3wna.png)
+![Strona główna](https://github.com/Jannixen/Ksiegarnia-internetowa/blob/master/strona_g%C5%82%C3%B3wna.png)
 
-![Strona produktu](https://github.com/Jannixen/Ksiegarnia-internetowa/blob/main/strona_produktu.png)
+![Strona produktu](https://github.com/Jannixen/Ksiegarnia-internetowa/blob/master/strona_produktu.png)
 
-![Zamówienie](https://github.com/Jannixen/Ksiegarnia-internetowa/blob/main/zam%C3%B3wienie.png)
+![Zamówienie](https://github.com/Jannixen/Ksiegarnia-internetowa/blob/master/zam%C3%B3wienie.png)
 
 ## Narzędzia ##
 
